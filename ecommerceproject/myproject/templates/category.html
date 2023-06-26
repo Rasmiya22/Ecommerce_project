@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block metadescription %}
+{% if category %}
+{{category.description|truncatewords:155}}
+{% else %}
+welcome to our store
+{% endif %}
+{% endblock %}
+
+
+{% block title %}
+{% if category %}
+{{category.name}}-ABC store
+{% else %}
+see our new collections-ABC store
+{% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="container" style="background-color: #3E2E23;">
+{% if category %}
+
+<div>
+  <div class="row my_row_class" >
+  <div class="mx-auto">
+    <p><a href="{% url 'ecommerceapp:allprodcat' %}" style="color:white;"> Our product collections</a></p>
+  </div>
+</div>
+  </div>
+{% endif %}
+<div class="text-center">
+  {% if category %}
+  <img class="my_image" src="{{category.image.url}}" alt="{{category.name}}" style="width:200px; margin: 0 auto;">
+</div>
+<br>
+<div>
+  <h1 class="text-center  my_title" style="color:white;">{{category.name}}</h1>
+  <p class="text-center" style="color:white;">{{category.description}}</p>
+</div>
+{% else %}
+<div>
+<img class="my_image   my_image_padding" src="{% static 'img/banner2.png' %}" alt="our products" style="max-width: 100%; height: auto;">
+</div>
+<br>
+
+<div class="container" style="background-color: #3E2E23;">
+  <h1 style="background-color: #3E2E23; color:white;" class="text-center  my_title" > our product collections</h1>
+  <p  style="background-color: #3E2E23; color:white;"    class="text-center my_title">We have variety of cakes</p>
+</div>
+{% endif %}
+<div class="container" >
+  <div class="row mx_auto">
+    {% for i in products.object_list %}
+    <div class="my_bottom_margin col-9 col-sm-12 col-md-4 col-lg-4">
+      <div class="card text-center" style="min-width: 18rem; ">
+        <a href="{{i.get_url}}"><img class="card-img-top my_image "  src="{{i.image.url}}" alt="{{i.name}}" style="width: 100%; height: 200px; object-fit: cover;" ></a>
+        <div class="card-body">
+         <h4> {{i.name}}</h4>
+          <p>{{i.price}}</p>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  </div>
+  <div class="mx-auto">
+    {% if products.paginator.num_pages > 1 %}
+    <hr>
+    <div class="text-center">
+      {% for pg  in products.paginator.page_range %}
+        <a href="?page={{pg}}"  class="btn btn-light btn-sm  {% if products.number == pg %} active {% endif %} ">{{pg}}</a>
+      {% endfor %}
+    </div>
+    {% endif %}
+  </div>
+  </div>
+</div>
+{% endblock %}
+

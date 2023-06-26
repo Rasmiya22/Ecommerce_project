@@ -1,0 +1,21 @@
+{% load static %}
+
+<style>
+header {
+  background-color: #3E2E23; /* Chocolate brown background color */
+  padding: 10px;
+}
+
+.logo-image {
+  display: block;
+  margin: 0 auto; /* Center the logo image horizontally */
+  max-width: 100px; /* Adjust the maximum width as needed */
+  height: auto;
+}
+</style>
+<header>
+  <center>
+      <a href="{%url 'ecommerceapp:allprodcat' %}"> <img class="logo-image" src = "{% static 'img/newlogo.png' %}" alt = "logoimage" width="100" height="100"></a>
+
+  </center>
+</header>
